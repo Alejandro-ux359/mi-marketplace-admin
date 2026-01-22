@@ -37,7 +37,7 @@ const pulseAnimation = keyframes`
   100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
 `;
 
-export default function Page() {
+export default function Home() {
   const [, setSelectedCard] = React.useState(0);
 
   const cards = [
