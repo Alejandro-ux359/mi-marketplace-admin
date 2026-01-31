@@ -13,9 +13,9 @@ export default function Header() {
   };
 
   const navItems = [
-    { href: "/", label: "Inicio" },
-    { href: "/sobreNosotros", label: "Sobre Nosotros" },
-    { href: "/contacto", label: "Contacto" },
+    { href: "/landing/home", label: "Inicio" },
+    { href: "/landing/about", label: "Sobre Nosotros" },
+    { href: "/landing/contact", label: "Contacto" },
   ];
 
   return (
@@ -66,7 +66,7 @@ export default function Header() {
               Ingresar
             </Link>
             <Link
-              href="/register"
+              href="/auth/registre"
               className="bg-linear-to-r from-indigo-600 to-purple-600 text-white px-5 py-2 rounded-lg hover:from-indigo-700 hover:to-purple-700 font-medium transition shadow-sm"
             >
               Registrarse
@@ -141,7 +141,7 @@ export default function Header() {
                 Ingresar
               </Link>
               <Link
-                href="/register"
+                href="/auth/registre"
                 onClick={() => setMenuOpen(false)}
                 className="block px-4 py-3 mx-2 mt-2 bg-linear-to-r from-indigo-600 to-purple-600 text-white text-center rounded-lg hover:from-indigo-700 hover:to-purple-700"
               >
