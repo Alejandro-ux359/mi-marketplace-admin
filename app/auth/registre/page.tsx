@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Head from "next/head";
-import { SiFacebook, SiApple } from "react-icons/si";
 import { FcGoogle } from "react-icons/fc";
 
 export default function RegisterPage() {
@@ -105,13 +104,8 @@ export default function RegisterPage() {
 
           <div className="providers">
             <button className="provider google">
-              <FcGoogle size={24} />
-            </button>
-            <button className="provider facebook">
-              <SiFacebook size={24} color="#1877F2" />
-            </button>
-            <button className="provider apple">
-              <SiApple size={24} color="#000" />
+              <FcGoogle size={24} style={{ marginRight: "8px" }} />
+              Continuar con Google
             </button>
           </div>
 
@@ -218,7 +212,7 @@ export default function RegisterPage() {
         }
 
         .phone-input select {
-          flex: 0 0 50px; 
+          flex: 0 0 50px;
           padding: 0 0.9rem;
           font-size: 0.85rem;
           line-height: 1;
@@ -262,22 +256,16 @@ export default function RegisterPage() {
           font-size: 0.82rem;
         }
 
-        .providers {
-          display: flex;
-          justify-content: center;
-          gap: 1rem;
-          margin-bottom: 0.5rem;
-        }
         .provider {
-          width: 42px;
-          height: 42px;
-          border-radius: 12px;
+          width: 100%;
+          padding: 0.9rem;
+          border-radius: 10px;
           border: 1px solid #e5e7eb;
-          background: white;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 1.2rem;
+          font-size: 1rem;
+          font-weight: 600;
           cursor: pointer;
           transition:
             transform 0.15s ease,
@@ -285,7 +273,17 @@ export default function RegisterPage() {
           filter: brightness(0.95);
         }
 
+        .provider.google {
+          background: white;
+          color: #000; /* Texto negro */
+        }
+
+        .provider.google:hover {
+          background: #f5f5f5;
+        }
+
         .footer {
+          margin-top: 1rem;
           text-align: center;
           font-size: 0.82rem;
           color: #0f172a;

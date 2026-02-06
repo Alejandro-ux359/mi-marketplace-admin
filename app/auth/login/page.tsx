@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Head from "next/head";
-import { SiFacebook, SiApple } from "react-icons/si";
 import { FcGoogle } from "react-icons/fc";
 
 export default function LoginPage() {
@@ -45,13 +44,8 @@ export default function LoginPage() {
 
           <div className="providers">
             <button className="provider google">
-              <FcGoogle size={24} />
-            </button>
-            <button className="provider facebook">
-              <SiFacebook size={24} color="#1877F2" />
-            </button>
-            <button className="provider apple">
-              <SiApple size={24} color="#000" />
+              <FcGoogle size={24} style={{ marginRight: "8px" }} />
+              Continuar con Google
             </button>
           </div>
 
@@ -175,27 +169,30 @@ export default function LoginPage() {
           font-size: 0.85rem;
         }
 
-        .providers {
-          display: flex;
-          justify-content: center;
-          gap: 1rem;
-        }
-
         .provider {
-          width: 48px;
-          height: 48px;
-          border-radius: 12px;
+          width: 100%;
+          padding: 0.9rem;
+          border-radius: 10px;
           border: 1px solid #e5e7eb;
-          background: white;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 1.2rem;
+          font-size: 1rem;
+          font-weight: 600;
           cursor: pointer;
           transition:
             transform 0.15s ease,
             box-shadow 0.15s ease;
-          filter: brightness(0.9);
+          filter: brightness(0.95);
+        }
+
+        .provider.google {
+          background: white;
+          color: #000; /* Texto negro */
+        }
+
+        .provider.google:hover {
+          background: #f5f5f5;
         }
 
         .footer {
