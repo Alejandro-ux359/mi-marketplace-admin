@@ -3,9 +3,21 @@
 import { useState } from "react";
 import Head from "next/head";
 import { FcGoogle } from "react-icons/fc";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { usePasswordVisibility } from "@/components/extras/usePasswordVisibility";
+import {
+  handleEmailChange,
+  handleNameChange,
+  handlePasswordChange,
+  validateEmail,
+  validatePassword,
+} from "@/components/validations/form";
 
 export default function LoginPage() {
   const [loading, setLoading] = useState(false);
+  const passwordVisibility = usePasswordVisibility();
+  const [email, setEmail] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -15,6 +27,11 @@ export default function LoginPage() {
       alert("Inicio de sesión correcto");
       setLoading(false);
     }, 1200);
+
+    if (!validateEmail(email)) {
+      alert("Correo inválido");
+      return;
+    }
   };
 
   return (
@@ -32,8 +49,28 @@ export default function LoginPage() {
           <p className="subtitle">Inicia sesión para continuar</p>
 
           <form onSubmit={handleSubmit}>
-            <input type="text" placeholder="Usuario o email" required />
-            <input type="password" placeholder="Contraseña" required />
+            <input
+              type="email"
+              placeholder="Correo"
+              required
+              className="input"
+              value={email}
+              onChange={(e) => handleEmailChange(e.target.value, setEmail)}
+            />
+            <div className="password-field">
+              <input
+                type={passwordVisibility.inputType}
+                placeholder="Contraseña"
+                required
+              />
+              <span onClick={passwordVisibility.toggleVisibility}>
+                {passwordVisibility.visible ? (
+                  <VisibilityOffIcon />
+                ) : (
+                  <VisibilityIcon />
+                )}
+              </span>
+            </div>
 
             <button type="submit" disabled={loading}>
               {loading ? "Ingresando..." : "Iniciar sesión"}
@@ -206,6 +243,30 @@ export default function LoginPage() {
           color: #6366f1;
           text-decoration: none;
           font-weight: 600;
+        }
+
+        .password-field {
+          position: relative;
+        }
+
+        .password-field input {
+          width: 100%;
+          padding-right: 42px;
+        }
+
+        .password-field span {
+          position: absolute;
+          right: 12px;
+          top: 50%;
+          transform: translateY(-50%);
+          cursor: pointer;
+          color: #64748b;
+          display: flex;
+          align-items: center;
+        }
+
+        .password-field span:hover {
+          color: #6366f1;
         }
       `}</style>
     </>
