@@ -4,19 +4,69 @@ import { useState } from "react";
 import Head from "next/head";
 import { FcGoogle } from "react-icons/fc";
 import MyPhone from "../../../components/myPhone/MyPhone";
+import {
+  handleEmailChange,
+  handleNameChange,
+  handlePasswordChange,
+  validateEmail,
+  validatePassword,
+} from "@/components/validations/form";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { usePasswordVisibility } from "@/components/extras/usePasswordVisibility";
 
 export default function RegisterPage() {
+  // Estados de formulario
   const [loading, setLoading] = useState(false);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [country, setCountry] = useState();
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const passwordVisibility = usePasswordVisibility();
+  const confirmPasswordVisibility = usePasswordVisibility();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validaciones
+    if (!firstName || !lastName) {
+      alert("Ingresa un nombre y apellido válidos");
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      alert("Ingresa un correo válido");
+      return;
+    }
+
+    if (!phone) {
+      alert("Ingresa un número de teléfono");
+      return;
+    }
+
+    if (!validatePassword(password)) {
+      alert(
+        "La contraseña debe tener al menos 6 caracteres y no contener caracteres peligrosos",
+      );
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      alert("Las contraseñas no coinciden");
+      return;
+    }
+
     if (!acceptedTerms) {
       alert("Debes aceptar los términos y condiciones");
       return;
     }
+
     setLoading(true);
 
     setTimeout(() => {
@@ -36,14 +86,25 @@ export default function RegisterPage() {
           <h1 className="logo">
             Rensha<span>Market</span>
           </h1>
-
           <p className="subtitle">Crea tu cuenta para continuar</p>
 
           <form onSubmit={handleSubmit}>
             {/* Nombres */}
             <div className="row">
-              <input type="text" placeholder="Nombre" required />
-              <input type="text" placeholder="Apellido" required />
+              <input
+                type="text"
+                placeholder="Nombre"
+                required
+                value={firstName}
+                onChange={(e) => handleNameChange(e.target.value, setFirstName)}
+              />
+              <input
+                type="text"
+                placeholder="Apellido"
+                required
+                value={lastName}
+                onChange={(e) => handleNameChange(e.target.value, setLastName)}
+              />
             </div>
 
             {/* Correo */}
@@ -52,40 +113,58 @@ export default function RegisterPage() {
               placeholder="Correo"
               required
               className="input"
+              value={email}
+              onChange={(e) => handleEmailChange(e.target.value, setEmail)}
             />
-
-           
 
             {/* Teléfono */}
             <div className="row phone-input">
-              {/* <select defaultValue="+53" className="input">
-                <option value="+53">+53</option>
-              </select>
-              <input
-                type="tel"
-                placeholder="Número de teléfono"
-                required
-                className="input"
-              /> */}
-
               <MyPhone
                 value={phone}
                 onChange={setPhone}
                 selectedCountry={country}
-                // onCountryChange={setCountry}
-                placeholder="Tu teléfono"
+                placeholder="Móvil"
                 inputClassName="input"
               />
             </div>
 
             {/* Contraseña */}
             <div className="row">
-              <input type="password" placeholder="Contraseña" required />
-              <input
-                type="password"
-                placeholder="Confirmar contraseña"
-                required
-              />
+              <div className="password-field">
+                <input
+                  type={passwordVisibility.inputType}
+                  placeholder="Contraseña"
+                  required
+                  value={password}
+                  onChange={(e) =>
+                    handlePasswordChange(e.target.value, setPassword)
+                  }
+                />
+                <span onClick={passwordVisibility.toggleVisibility}>
+                  {passwordVisibility.visible ? (
+                    <VisibilityOffIcon />
+                  ) : (
+                    <VisibilityIcon />
+                  )}
+                </span>
+              </div>
+
+              <div className="password-field">
+                <input
+                  type={confirmPasswordVisibility.inputType}
+                  placeholder="Confirmar contraseña"
+                  required
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+                <span onClick={confirmPasswordVisibility.toggleVisibility}>
+                  {confirmPasswordVisibility.visible ? (
+                    <VisibilityOffIcon />
+                  ) : (
+                    <VisibilityIcon />
+                  )}
+                </span>
+              </div>
             </div>
 
             {/* Términos */}
@@ -118,7 +197,6 @@ export default function RegisterPage() {
           </p>
         </div>
       </div>
-
       <style jsx>{`
         * {
           box-sizing: border-box;
@@ -284,6 +362,31 @@ export default function RegisterPage() {
           color: #6366f1;
           text-decoration: none;
           font-weight: 600;
+        }
+
+        .password-field {
+          position: relative;
+          flex: 1;
+        }
+
+        .password-field input {
+          width: 100%;
+          padding-right: 40px;
+        }
+
+        .password-field span {
+          position: absolute;
+          right: 10px;
+          top: 50%;
+          transform: translateY(-50%);
+          cursor: pointer;
+          color: #64748b;
+          display: flex;
+          align-items: center;
+        }
+
+        .password-field span:hover {
+          color: #6366f1;
         }
 
         @media (max-width: 500px) {
