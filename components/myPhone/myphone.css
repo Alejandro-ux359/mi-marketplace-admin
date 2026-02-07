@@ -1,0 +1,87 @@
+.my-phone {
+  display: flex;
+  width: 100%;
+  font-family: inherit;
+}
+
+/* País */
+.my-phone__country {
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* Selector visible */
+.my-phone__selected {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 10px;
+  min-width: 88px;       /* 👈 clave */
+  height: 44px;
+  border: 1px solid #cbd5e1;
+  border-right: none;
+  border-radius: 8px 0 0 8px;
+  background: #fff;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+/* Internos */
+.flag {
+  font-size: 20px;       /* 👈 más pequeño para móvil */
+  line-height: 1;
+}
+.code {
+  font-size: 13px;
+  white-space: nowrap;
+}
+.arrow {
+  font-size: 9px;
+  opacity: 0.6;
+}
+
+/* Select invisible */
+.my-phone__select {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+/* Input */
+.my-phone input {
+  flex: 1;
+  min-width: 0;          /* 👈 IMPORTANTÍSIMO para móvil */
+  height: 44px;
+  padding: 0 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 0 8px 8px 0;
+  font-size: 14px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+/* Foco unificado */
+.my-phone:focus-within .my-phone__selected,
+.my-phone:focus-within input {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25);
+}
+
+/* 📱 Ajustes finos solo para pantallas pequeñas */
+@media (max-width: 480px) {
+  .my-phone__selected {
+    min-width: 76px;
+    padding: 0 8px;
+  }
+
+  .flag {
+    font-size: 18px;
+  }
+
+  .code {
+    font-size: 12px;
+  }
+}

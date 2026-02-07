@@ -3,10 +3,13 @@
 import { useState } from "react";
 import Head from "next/head";
 import { FcGoogle } from "react-icons/fc";
+import MyPhone from "../../../components/myPhone/MyPhone";
 
 export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [phone, setPhone] = useState("");
+  const [country, setCountry] = useState();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,19 +54,11 @@ export default function RegisterPage() {
               className="input"
             />
 
-            {/* Municipio + Código Postal */}
-            <div className="row">
-              <input
-                type="text"
-                placeholder="Municipio / Provincia / Estado / Localidad"
-                required
-              />
-              <input type="text" placeholder="Código Postal" required />
-            </div>
+           
 
             {/* Teléfono */}
             <div className="row phone-input">
-              <select defaultValue="+53" className="input">
+              {/* <select defaultValue="+53" className="input">
                 <option value="+53">+53</option>
               </select>
               <input
@@ -71,6 +66,15 @@ export default function RegisterPage() {
                 placeholder="Número de teléfono"
                 required
                 className="input"
+              /> */}
+
+              <MyPhone
+                value={phone}
+                onChange={setPhone}
+                selectedCountry={country}
+                // onCountryChange={setCountry}
+                placeholder="Tu teléfono"
+                inputClassName="input"
               />
             </div>
 
@@ -209,18 +213,6 @@ export default function RegisterPage() {
         .input:focus {
           outline: none;
           border-color: #6366f1;
-        }
-
-        .phone-input select {
-          flex: 0 0 50px;
-          padding: 0 0.9rem;
-          font-size: 0.85rem;
-          line-height: 1;
-          border-radius: 8px;
-          border: 1px solid #cbd5e1;
-        }
-        .phone-input input {
-          flex: 1;
         }
 
         .terms {
