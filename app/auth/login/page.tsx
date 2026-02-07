@@ -8,10 +8,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { usePasswordVisibility } from "@/components/extras/usePasswordVisibility";
 import {
   handleEmailChange,
-  handleNameChange,
-  handlePasswordChange,
   validateEmail,
-  validatePassword,
 } from "@/components/validations/form";
 
 export default function LoginPage() {
